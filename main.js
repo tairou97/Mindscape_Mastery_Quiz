@@ -4,9 +4,6 @@ const figlet = require("figlet");
 const gradient = require('gradient-string');
 const readline = require('readline');
 
-
-
-
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
@@ -63,17 +60,6 @@ function askQuestion() {
       askQuestion();
     };
 
-    const checkForWinner = () => {
-      const winner = players.find((player) => player.score >= 600);
-      if (winner) {
-        console.log(gradient.instagram(figlet.textSync(`     Game over!`)));
-        console.log(gradient.instagram(`${winner.name} gewinnt das Spiel mit ${winner.score}Punkten. Herzlichen Glückwunsch!\n`));
-        rl.close();
-      } else {
-        askNextQuestion();
-      }
-    };
-
     const askForAnswer = (player) => {
       rl.question(`${player.name}, ${currentQuestion.question}\n>`, (userAnswer) => {
         if (userAnswer.toLowerCase() === currentQuestion.answer.toLowerCase()) {
@@ -86,6 +72,17 @@ function askQuestion() {
           checkForWinner();
         }
       });
+    };
+
+    const checkForWinner = () => {
+      const winner = players.find((player) => player.score >= 600);
+      if (winner) {
+        console.log(gradient.instagram(figlet.textSync(`  wir haben unsere gewinner `)));
+        console.log(gradient.instagram(`🎉${winner.name} gewinnt das Spiel mit ${winner.score}Punkten. Herzlichen Glückwunsch!\n🎉`));
+        rl.close();
+      } else {
+        askNextQuestion();
+      }
     };
 
     const currentPlayer = players[currentQuestionIndex % players.length];
